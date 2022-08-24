@@ -1,0 +1,59 @@
+# NOTE: changes done to this Swagger Definition may require changes in the API "API Policy Interceptor Request"
+# with the OAS: "api_policy_intercept_request_openAPI.yaml" and API YAML file: "api_policy_intercept_request.yaml".
+# This is because, same integration test case classes are shared with that API.
+
+swagger: '2.0'
+info:
+  description: 'This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.'
+  version: 1.0.5
+  title: Swagger Dynamic Endpoint Request Intercept
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: 'host.docker.internal:8000'
+basePath: /v2
+x-wso2-basePath: /dynamic-endpoint
+schemes:
+  - http
+x-wso2-production-endpoints:
+  urls:
+    - http://host.docker.internal:8000/v2
+x-wso2-endpoints:
+  - myDynamicEndpoint:
+      urls:
+        - http://host.docker.internal:8000/v2 # same base path as x-wso2-production-endpoints. Change host to 127.0.0.1 for linux
+      type: loadbalance
+  - myDynamicEndpoint2:
+      urls:
+        - http://host.docker.internal:8001/v2 # same base path as x-wso2-production-endpoints. Change host to 127.0.0.1 for linux
+      type: loadbalance
+
+paths:
+  /echo/{id}:
+    get:
+      summary: Echo Request
+      description: Echo request back to the client
+      operationId: echo
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        '200':
+          description: successful operation
+    post:
+      summary: Echo Request
+      description: Echo request back to the client
+      operationId: echo
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        '200':
+          description: successful operation
+
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
